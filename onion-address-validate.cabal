@@ -1,0 +1,49 @@
+cabal-version: 2.4
+name:          onion-address-validate
+version:       0.1.0.0
+synopsis:      Validate Onion Address Checksums
+homepage:      https://github.com/MorrowM/onion-address-validate
+bug-reports:   https://github.com/MorrowM/onion-address-validate/issues
+license:       MIT
+license-file:  LICENSE
+author:        MorrowM
+maintainer:    themorrowm@gmail.com
+
+common common
+  ghc-options:      -Wall
+  default-language: GHC2021
+  build-depends:    base ^>=4.16
+
+library
+  import:          common
+  exposed-modules: Onion.Address
+  build-depends:
+    , base32          ^>=0.2
+    , bytestring      ^>=0.11
+    , cryptonite      ^>=0.30
+    , memory          ^>=0.17
+    , text            ^>=1.2
+    , uri-bytestring  ^>=0.3
+
+  hs-source-dirs:  src
+
+executable onion-address-validate
+  import:         common
+  main-is:        Main.hs
+  build-depends:
+    , bytestring              ^>=0.11
+    , onion-address-validate
+    , text                    ^>=1.2
+
+  hs-source-dirs: app
+
+test-suite tests
+  import:         common
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        Main.hs
+  build-depends:
+    , bytestring              ^>=0.11
+    , onion-address-validate
+    , tasty                   ^>=1.4
+    , tasty-hunit             ^>=0.10
